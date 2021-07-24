@@ -46,7 +46,9 @@ public:
 	static void SetOutputName(std::string& name);
 
 
-	// Debug functions
+	// Debug function
+	static void PrintList(const std::vector<std::string>& list);
+	static void PrintSourceDir();
 	static void PrintInclude();
 	static void PrintLibDir();
 	static void PrintLibLink();
