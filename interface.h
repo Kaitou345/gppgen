@@ -54,16 +54,15 @@ public:
 	
 	static void Generate();
 private:
-	static std::vector<std::string> s_SourceDirs;		// 	1
-	static Standard 				s_Standard;			// 	2
-	static std::vector<std::string> s_IncludeDirs;		// 	3	
-	static std::vector<std::string> s_LibDirs;			// 	4
-	static std::vector<std::string> s_LibLinks;	  		//	5	
-	static bool 					s_DebugFlag;        // 	6
-	static std::vector<std::string> s_Defines;			// 	7
-	static std::string 			    s_OutputDir;       	// 	8
-	static std::string 			    s_OutputName;		// 	9
-
+	static std::vector<std::string> s_SourceDirs;           // 1
+	static Standard                 s_Standard;             // 2
+	static std::vector<std::string> s_IncludeDirs;          // 3
+	static std::vector<std::string> s_LibDirs;              // 4
+	static std::vector<std::string> s_LibLinks;             // 5
+	static bool                     s_DebugFlag;            // 6
+	static std::vector<std::string> s_Defines;              // 7
+	static std::string              s_OutputDir;            // 8
+	static std::string              s_OutputName;           // 9
 };
 
 #endif
