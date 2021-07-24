@@ -5,14 +5,14 @@
 #include <algorithm>
 
 std::vector<std::string>    Interface::s_SourceDirs;        //  1
-Standard 				    Interface::s_Standard;          //  2
+Standard                    Interface::s_Standard;          //  2
 std::vector<std::string>    Interface::s_IncludeDirs;       //  3
 std::vector<std::string>    Interface::s_LibDirs;           //  4
 std::vector<std::string>    Interface::s_LibLinks;          //  5
-bool 					    Interface::s_DebugFlag;         //  6
-std::vector<std::string>    Interface::s_Defines;			// 	7
-std::string 			    Interface::s_OutputDir;         //	8
-std::string 			    Interface::s_OutputName;	    // 	9
+bool                        Interface::s_DebugFlag;         //  6
+std::vector<std::string>    Interface::s_Defines;           //  7
+std::string                 Interface::s_OutputDir;         //  8
+std::string                 Interface::s_OutputName;        //  9
 
 const std::vector<std::string>& Interface::GetSourceDirs()  { return s_SourceDirs; }    // 1
 const std::vector<std::string>& Interface::GetIncludeDirs() { return s_IncludeDirs; }   // 3
