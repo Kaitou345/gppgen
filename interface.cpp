@@ -75,38 +75,16 @@ void Interface::SetDebugFlag(bool flag)          { s_DebugFlag = flag; }
 void Interface::SetOutputDir(std::string& dir)   { s_OutputDir = dir;  }
 void Interface::SetOutputName(std::string& name) { s_OutputName = name; }
 
-void Interface::PrintInclude()
+void Interface::PrintList(const std::vector<std::string>& list)
 {
-    auto& includeDirs = GetIncludeDirs();
-    for(auto& dir : includeDirs)
+    for(auto& value : list)
     {
-        std::cout << dir << std::endl;
+        std::cout << value << std::endl;
     }
 }
 
-void Interface::PrintLibDir()
-{
-    auto& libDirs = GetLibDirs();
-    for(auto& dir : libDirs)
-    {
-        std::cout << dir << std::endl;
-    }
-}
-
-void Interface::PrintLibLink()
-{
-    auto& libLinks = GetLibLinks();
-    for(auto& dir : libLinks)
-    {
-        std::cout << dir << std::endl;
-    }
-}
-
-void Interface::PrintDefine()
-{
-    auto& defines = GetDefines();
-    for(auto& dir : defines)
-    {
-        std::cout << dir << std::endl;
-    }
-}
+void Interface::PrintSourceDir()  { PrintList(GetSourceDirs());  }
+void Interface::PrintIncludeDir() { PrintList(GetIncludeDirs()); }
+void Interface::PrintLibDir()     { PrintList(GetLibDirs());     }
+void Interface::PrintLibLink()    { PrintList(GetLibLinks());    }
+void Interface::PrintDefine()     { PrintList(GetDefines());     }
