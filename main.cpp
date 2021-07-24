@@ -15,7 +15,7 @@ int main()
     Interface::PushIncludeDir("/home/dev/");
     Interface::PushIncludeDir("/home/dev/");
 
-    Interface::PrintInclude();
+    Interface::PrintIncludeDir();
 }
 
 void PrintMenu()
@@ -38,4 +38,3 @@ void PrintMenu()
     std::cout << " 9. Set output filename"                   << std::endl;
     std::cout << "10. Generate"                              << std::endl;
 }
-
