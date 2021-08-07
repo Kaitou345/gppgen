@@ -4,15 +4,15 @@
 #include <vector>
 #include <algorithm>
 
-std::vector<std::string>    Interface::s_SourceDirs;        //  1
-Standard                    Interface::s_Standard;          //  2
-std::vector<std::string>    Interface::s_IncludeDirs;       //  3
-std::vector<std::string>    Interface::s_LibDirs;           //  4
-std::vector<std::string>    Interface::s_LibLinks;          //  5
-bool                        Interface::s_DebugFlag;         //  6
-std::vector<std::string>    Interface::s_Defines;           //  7
-std::string                 Interface::s_OutputDir;         //  8
-std::string                 Interface::s_OutputName;        //  9
+std::vector<std::string>    Interface::s_SourceDirs;                                   //  1
+Standard                    Interface::s_Standard          = Standard::CPP11;           //  2
+std::vector<std::string>    Interface::s_IncludeDirs;                                  //  3
+std::vector<std::string>    Interface::s_LibDirs;                                      //  4
+std::vector<std::string>    Interface::s_LibLinks;                                     //  5
+bool                        Interface::s_DebugFlag         = false;                     //  6
+std::vector<std::string>    Interface::s_Defines;                                      //  7
+std::string                 Interface::s_OutputDir;                                    //  8
+std::string                 Interface::s_OutputName;                                   //  9
 
 const std::vector<std::string>& Interface::GetSourceDirs()  { return s_SourceDirs; }    // 1
 const std::vector<std::string>& Interface::GetIncludeDirs() { return s_IncludeDirs; }   // 3
@@ -28,28 +28,28 @@ const std::string               Interface::GetStandard()                        
     switch (s_Standard)
     {
     case Standard::CPP98:
-        return "C++98";
+        return "std=c++98";
         break;
     case Standard::CPP03:
-        return "C++03";
+        return "std=c++03";
         break;
     case Standard::CPP11:
-        return "C++11";
+        return "std=c++11";
         break;
     case Standard::CPP14:
-        return "C++14";
+        return "std=c++14";
         break;
     case Standard::CPP17:
-        return "C++17";
+        return "std=c++17";
         break;
     case Standard::CPP20:
-        return "C++20";
+        return "std=c++20";
         break;
     case Standard::CPP23:
-        return "C++23";
+        return "std=c++23";
         break;
     default:
-        return "C++11";
+        return "std=c++11";
         break;
     }
 
@@ -72,8 +72,8 @@ void Interface::PushDefine(const std::string& name)    { PushTo(s_Defines, name)
 
 void Interface::SetStandard(Standard Standard)   { s_Standard = Standard; }
 void Interface::SetDebugFlag(bool flag)          { s_DebugFlag = flag; }
-void Interface::SetOutputDir(std::string& dir)   { s_OutputDir = dir;  }
-void Interface::SetOutputName(std::string& name) { s_OutputName = name; }
+void Interface::SetOutputDir(const std::string& dir)   { s_OutputDir = dir;  }
+void Interface::SetOutputName(const std::string& name) { s_OutputName = name; }
 
 void Interface::PrintList(const std::vector<std::string>& list)
 {
@@ -88,3 +88,29 @@ void Interface::PrintIncludeDir() { PrintList(GetIncludeDirs()); }
 void Interface::PrintLibDir()     { PrintList(GetLibDirs());     }
 void Interface::PrintLibLink()    { PrintList(GetLibLinks());    }
 void Interface::PrintDefine()     { PrintList(GetDefines());     }
+
+void Interface::AppendVector(std::vector<std::string>& list, std::string& value, const std::string& prefix)
+{
+    for(const auto& dirs: list)
+    {
+        value.append(prefix + dirs);
+    }
+}
+
+std::string Interface::Generate()
+{
+    std::string command = "g++";
+
+    if(s_DebugFlag) command.append(" -g ");
+
+    command.append('-' + GetStandard());
+
+    AppendVector(s_SourceDirs, command);
+    AppendVector(s_Defines, command, " -D");    
+    AppendVector(s_IncludeDirs, command, " -I");
+    AppendVector(s_LibDirs, command, " -L");
+    AppendVector(s_LibLinks, command, " -l");
+
+    command.append(" -o " + s_OutputDir + s_OutputName);
+    return command;   
+}

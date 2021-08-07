@@ -6,13 +6,13 @@
 
 enum class Standard
 {
-	CPP98 = 98,
-	CPP03 =  3,
-	CPP11 = 11,
-	CPP14 = 14,
-	CPP17 = 17,
-	CPP20 = 20,
-	CPP23 = 23
+	CPP98,
+	CPP03,
+	CPP11,
+	CPP14,
+	CPP17,
+	CPP20,
+	CPP23	
 };
 
 class Interface
@@ -32,7 +32,6 @@ public:
 	static const std::string&  					GetOutputName();	// 9
 	static const std::string  					GetStandard();		// 2
 	
-	static void PushTo(std::vector<std::string>& list, const std::string& value);
 
 	static void PushSourceDir(const std::string& dir);
 	static void PushIncludeDir(const std::string& dir);
@@ -42,8 +41,8 @@ public:
 
 	static void SetStandard(Standard Standard);
 	static void SetDebugFlag(bool flag);
-	static void SetOutputDir(std::string& dir);
-	static void SetOutputName(std::string& name);
+	static void SetOutputDir(const std::string& dir);
+	static void SetOutputName(const std::string& name);
 
 
 	// Debug functions
@@ -54,14 +53,24 @@ public:
 	static void PrintLibLink();
 	static void PrintDefine();
 	
-	static void Generate();
+	static std::string Generate();
+private:
+	static void PushTo(std::vector<std::string>& list, const std::string& value);
+	static void AppendVector(std::vector<std::string>& list, std::string& value, const std::string& prefix = " ");
+
 private:
 	static std::vector<std::string> s_SourceDirs;          //  1
+	
+	/// Defaults to C++11
 	static Standard                 s_Standard;            //  2
+	
 	static std::vector<std::string> s_IncludeDirs;         //  3
 	static std::vector<std::string> s_LibDirs;             //  4
 	static std::vector<std::string> s_LibLinks;            //  5
+
+	/// defaults to release mode
 	static bool                     s_DebugFlag;           //  6
+
 	static std::vector<std::string> s_Defines;             //  7
 	static std::string              s_OutputDir;           //  8
 	static std::string              s_OutputName;          //  9
